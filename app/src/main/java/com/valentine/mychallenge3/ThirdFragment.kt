@@ -64,8 +64,9 @@ class ThirdFragment : Fragment() {
 
         //show fragment 2
         nameTextView.text = name
-        //show fragment 4
+        //mengecek class atribute apakah kosong atau tidak
     if (atribute!=null){
+        //menampilkan nama jika terisi namun jika tidak maka tersembunyi
         nameTextView.visibility= View.INVISIBLE
         detail.visibility = View.VISIBLE
 
