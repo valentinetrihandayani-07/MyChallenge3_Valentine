@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 
 class FirstFragment : Fragment() {
-    private lateinit var SecondFragmentButton: Button
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,22 +20,15 @@ class FirstFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        SecondFragmentButton = view.findViewById(R.id.btn_screen_1)
-        SecondFragmentButton.setOnClickListener {
-            val secondFragment = SecondFragment()
-            val fragmentManager = parentFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(
-                R.id.frame_layout_container,
-                secondFragment,
-                SecondFragmentButton::class.java.simpleName
-            )
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+        //casting
+        val button = view.findViewById<Button>(R.id.btn_screen_1)
+        button.setOnClickListener {
+            findNavController().navigate(R.id.action_firstFragment_to_secondFragment)
         }
-    }
 
+    }
 
 }

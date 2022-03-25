@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ThirdFragment">
 
     <TextView
@@ -12,15 +13,55 @@
         android:layout_marginTop="16dp"
         android:text="Screen 3"
         android:textSize="24sp"
-        android:layout_gravity="center_horizontal"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <include
-        android:id="@+id/view_detail_4"
-        layout="@layout/fragment_detail"
+    <TextView
+        android:id="@+id/txt_fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center_horizontal"/>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_title_3"
+        tools:text="Nama Anda" />
+
+    <TextView
+        android:id="@+id/txt_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_fullname"
+        android:visibility="gone"
+        tools:text="Usia Anda" />
+
+    <TextView
+        android:id="@+id/txt_alamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_age"
+        android:visibility="gone"
+        tools:text="Alamat Anda" />
+
+    <TextView
+        android:id="@+id/txt_pekerjaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_alamat"
+        android:visibility="gone"
+        tools:text="Pekerjaan Anda" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -28,20 +69,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" />
 
-    <TextView
-        android:id="@+id/txt_yourname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-        tools:text="Nama Anda" />
 
     <Button
         android:id="@+id/btn_screen_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="52dp"
         android:backgroundTint="@color/blue"
-        android:text="Go To Screen 4" />
-</FrameLayout>
+        android:text="Go To Screen 4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_pekerjaan"
+        tools:layout_editor_absoluteX="147dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,10 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+
 data class Atribute(
     val name: String,
-    val usia: Int,
-    val alamat: String,
-    val pekerjaan: String
+    val usia: Int?=null,
+    val alamat:String?=null,
+    val pekerjaan: String?=null
 ): Parcelable

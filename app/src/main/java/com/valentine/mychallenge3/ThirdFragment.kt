@@ -13,26 +13,13 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Constraints
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 class ThirdFragment : Fragment() {
-    //deklarasi dari fragment 2
-    lateinit var nameTextView: TextView
-    lateinit var FourFragmentButton: Button
-    //deklarasi dari fragment 4
-    lateinit var nameTextView2: TextView
-    lateinit var usiaTextView: TextView
-    lateinit var alamatTextView: TextView
-    lateinit var pekerjaanTextView: TextView
-    lateinit var detail: ConstraintLayout
-    //deklarasi xml fragment detail
+    private val arguments: ThirdFragmentArgs by navArgs()
     private var status = ""
     private var usia = ""
-
-
-
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,66 +27,58 @@ class ThirdFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_third, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //casting fragment 2
-        nameTextView = view.findViewById(R.id.txt_yourname)
-        //casting fragment 4
-        nameTextView2 = view.findViewById(R.id.txt_fullname)
-        usiaTextView = view.findViewById(R.id.txt_age)
-        alamatTextView = view.findViewById(R.id.txt_alamat)
-        pekerjaanTextView = view.findViewById(R.id.txt_pekerjaan)
-        detail = view.findViewById(R.id.view_detail_4)
-        //detail fragment
-
-
-        //ambil data yang telah dikirim dari fragment 2 kedalam variabel
-        val name = arguments?.getString("name_key")
-        //ambil data yang telah dikirim dari fragment 4
-        val atribute = arguments?.getParcelable<Atribute>("name_key4")
-
-
-        //show fragment 2
-        nameTextView.text = name
-        //mengecek class atribute apakah kosong atau tidak
-    if (atribute!=null){
-        //menampilkan nama jika terisi namun jika tidak maka tersembunyi
-        nameTextView.visibility= View.INVISIBLE
-        detail.visibility = View.VISIBLE
-
-        nameTextView2.text = atribute.name
-        alamatTextView.text = atribute.alamat
-        pekerjaanTextView.text = atribute.pekerjaan
-
-        if (atribute.usia % 2 == 0) {
-            status = "Genap"
-            usia = getString(R.string.umur, atribute.usia, status)
-
-        } else {
-            status = "Ganjil"
-            usia = getString(R.string.umur, atribute.usia, status)
-        }
-        usiaTextView.text = usia
-    }
-
-
-
         //casting data
-        FourFragmentButton = view.findViewById(R.id.btn_screen_3)
+        val button = view.findViewById<Button>(R.id.btn_screen_3)
+        val usernameTextView4 = view.findViewById<TextView>(R.id.txt_fullname)
+        val ageTextView = view.findViewById<TextView>(R.id.txt_age)
+        val alamatTextView = view.findViewById<TextView>(R.id.txt_alamat)
+        val pekerjaanTextView = view.findViewById<TextView>(R.id.txt_pekerjaan)
 
-        FourFragmentButton.setOnClickListener {
-            val fourFragment = FourFragment()
-            val fragmentManager:FragmentManager = parentFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
-            //object instance fragment
-            fragmentTransaction.replace(R.id.frame_layout_container, fourFragment, FourFragment::class.java.simpleName)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+        //get fragment 2
+        usernameTextView4.text = arguments.parcelableData?.name
+        //get fragment 4
+        ageTextView.text = arguments.parcelableData?.usia.toString()
+        alamatTextView.text = arguments.parcelableData?.alamat.toString()
+        pekerjaanTextView.text = arguments.parcelableData?.pekerjaan.toString()
+        //parcelable data
+        val atribute = arguments.parcelableData
+        //show fragment 2
+        usernameTextView4.text = atribute?.name
+        //show fragment 4
+        if (atribute?.pekerjaan != null && atribute.alamat != null && atribute.usia != null) {
+
+            //menampilkan nama jika terisi namun jika tidak maka tersembunyi
+            alamatTextView.visibility = View.VISIBLE
+            pekerjaanTextView.visibility = View.VISIBLE
+            ageTextView.visibility = View.VISIBLE
+
+            alamatTextView.text = atribute.alamat
+            pekerjaanTextView.text = atribute.pekerjaan
+            //memeriksa usia ganjil dan genap
+            atribute.usia?.let {
+                if (it % 2 == 0) {
+                    status = "Genap"
+                    usia = getString(R.string.umur, atribute.usia, status)
+
+                } else {
+                    status = "Ganjil"
+                    usia = getString(R.string.umur, atribute.usia, status)
+                }
+                ageTextView.text = usia
+
+            }
+
         }
 
+        button.setOnClickListener {
+            findNavController().navigate(R.id.action_thirdFragment_to_fourFragment)
+        }
     }
+
+
 }
